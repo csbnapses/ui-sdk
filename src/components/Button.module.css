@@ -1,0 +1,33 @@
+/* Button.module.css */
+.button {
+    @apply avantos-inline-flex avantos-items-center avantos-justify-center avantos-rounded-md avantos-font-semibold avantos-transition-colors;
+    @apply avantos-border-0 avantos-outline-none avantos-appearance-none avantos-cursor-pointer;
+}
+
+.primary {
+    @apply avantos-bg-blue-500 avantos-text-white;
+}
+
+.primary:hover {
+    @apply avantos-bg-blue-600;
+}
+
+.secondary {
+    @apply avantos-bg-gray-200 avantos-text-gray-800;
+}
+
+.secondary:hover {
+    @apply avantos-bg-gray-300;
+}
+
+.small {
+    @apply avantos-px-3 avantos-py-1 avantos-text-sm;
+}
+
+.medium {
+    @apply avantos-px-4 avantos-py-2;
+}
+
+.large {
+    @apply avantos-px-6 avantos-py-3 avantos-text-lg;
+} 

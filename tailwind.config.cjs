@@ -2,7 +2,7 @@
 module.exports = {
     prefix: 'avantos-',
     content: [
-        "./src/**/*.{js,jsx,ts,tsx}"
+        "./src/**/*.{js,jsx,ts,tsx,css}"
     ],
     corePlugins: {
         preflight: false,

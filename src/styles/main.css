@@ -2,34 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Essential resets for SDK root */
+/* SDK root container with strong isolation */
 .avantos-sdk-root {
-    all: initial;
-    display: block;
-    font-family: system-ui, -apple-system, sans-serif;
+    all: initial !important;
+    display: block !important;
+    font-family: system-ui, -apple-system, sans-serif !important;
+    box-sizing: border-box !important;
 }
 
 /* Reset all elements within SDK */
 .avantos-sdk-root * {
-    box-sizing: border-box;
+    box-sizing: border-box !important;
 }
 
 /* Basic button reset */
 .avantos-sdk-root button {
-    appearance: none;
-    border: none;
-    background: none;
-    padding: 0;
-    margin: 0;
-    cursor: pointer;
-    font-family: inherit;
-    outline: none;
-}
-
-/* Override focus and hover states */
-.avantos-sdk-root button:focus,
-.avantos-sdk-root button:hover {
-    outline: none;
+    all: unset !important;
+    appearance: none !important;
+    border: none !important;
+    background: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    cursor: pointer !important;
+    font-family: inherit !important;
+    outline: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
 }
 
 /* Ensure text colors are applied */

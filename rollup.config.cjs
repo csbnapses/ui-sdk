@@ -27,11 +27,13 @@ module.exports = {
             config: {
                 path: './postcss.config.cjs'
             },
-            extensions: ['.css'],
+            modules: {
+                generateScopedName: '[name]__[local]___[hash:base64:5]'
+            },
+            extract: false,
             minimize: true,
-            inject: true,
-            modules: false,
-            extract: false
+            use: ['sass'],
+            extensions: ['.css', '.scss', '.sass']
         }),
         babel({
             babelHelpers: 'bundled',
@@ -43,13 +45,10 @@ module.exports = {
             extensions: ['.js', '.jsx', '.ts', '.tsx']
         }),
         commonjs({
-            include: /node_modules/,
-            transformMixedEsModules: true
+            include: /node_modules/
         }),
         typescript({
-            tsconfig: './tsconfig.json',
-            sourceMap: true,
-            inlineSources: true
+            tsconfig: './tsconfig.json'
         })
     ],
     external: ['react', 'react-dom']
