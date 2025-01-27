@@ -6,38 +6,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <title>SDK Test</title>
+
+    <!-- Error Handler -->
+    <script>
+        function handleSDKError(error) {
+            console.error('SDK Error:', error);
+            document.getElementById('root').innerHTML = `
+                <div style="color: red; padding: 20px;">
+                    Error loading SDK. Please check the console for details.
+                </div>
+            `;
+        }
+
+        // Global error handler
+        window.onerror = function (msg, url, line) {
+            console.error('Global error:', msg, url, line);
+            handleSDKError({ message: msg });
+            return false;
+        };
+    </script>
+
     <!-- Include React 18 -->
     <script>window.process = { env: { NODE_ENV: 'production' } };</script>
-    <script crossorigin src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"
+        onload="console.log('React loaded')" onerror="handleSDKError(new Error('Failed to load React'))"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"
+        onload="console.log('ReactDOM loaded')" onerror="handleSDKError(new Error('Failed to load ReactDOM'))"></script>
 
     <!-- Include Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Include our SDK -->
-    <script>
-        function handleSDKError() {
-            document.getElementById('root').innerHTML = `
-                <div class="text-red-500">
-                    Error loading SDK. Please check the console for details.
-                </div>
-            `;
-        }
-    </script>
     <script src="https://csbnapses.github.io/ui-sdk/dist/index.global.js" type="text/javascript"
-        onerror="handleSDKError()"></script>
+        onload="console.log('SDK loaded')" onerror="handleSDKError(new Error('Failed to load SDK'))"></script>
 </head>
 
 <body class="p-8">
     <h1 class="text-2xl font-bold mb-4">Avantos UI SDK Demo</h1>
     <div id="root"></div>
     <script>
-        // Wait for all scripts to load
-        window.onload = function () {
+        function initApp() {
             try {
-                if (typeof AvantosSdk === 'undefined') {
-                    throw new Error('SDK not loaded properly');
-                }
+                if (typeof React === 'undefined') throw new Error('React not loaded');
+                if (typeof ReactDOM === 'undefined') throw new Error('ReactDOM not loaded');
+                if (typeof AvantosSdk === 'undefined') throw new Error('SDK not loaded');
 
                 const { Button } = AvantosSdk;
 
@@ -63,9 +75,16 @@
                 root.render(React.createElement(App));
             } catch (error) {
                 console.error('Error initializing app:', error);
-                handleSDKError();
+                handleSDKError(error);
             }
-        };
+        }
+
+        // Initialize when everything is loaded
+        if (document.readyState === 'complete') {
+            initApp();
+        } else {
+            window.addEventListener('load', initApp);
+        }
     </script>
 </body>
 

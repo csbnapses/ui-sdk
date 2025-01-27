@@ -22,7 +22,9 @@ async function build() {
         },
         minify: true,
         banner: {
-            js: '/* @license MIT */',
+            js: '/* @license MIT */\n' +
+                'var React = window.React;\n' +
+                'var ReactDOM = window.ReactDOM;',
         },
     });
 
