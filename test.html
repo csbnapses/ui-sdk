@@ -91,6 +91,12 @@
                 const React = getReact();
                 const ReactDOM = getReactDOM();
 
+                console.log('Debug: Checking dependencies...');
+                console.log('Debug: React available:', !!React, React?.version);
+                console.log('Debug: ReactDOM available:', !!ReactDOM, ReactDOM?.version);
+                console.log('Debug: SDK available:', !!window.AvantosSdk);
+                console.log('Debug: Root element:', document.getElementById('root'));
+
                 if (!React) throw new Error('React not found in any context');
                 if (!ReactDOM) throw new Error('ReactDOM not found in any context');
                 if (typeof AvantosSdk === 'undefined') throw new Error('SDK not loaded');
@@ -102,12 +108,13 @@
                 });
 
                 const { Button } = AvantosSdk;
+                console.log('Debug: Button component:', !!Button);
                 if (!Button) throw new Error('Button component not found in SDK');
 
                 const App = () => {
-                    return React.createElement('div', { className: 'tw-p-8' }, [
+                    return React.createElement('div', { className: 'avantos-p-8' }, [
                         React.createElement('h1', {
-                            className: 'tw-text-2xl tw-font-bold tw-mb-4',
+                            className: 'avantos-text-2xl avantos-font-bold avantos-mb-4',
                             key: 'title'
                         }, 'Avantos UI SDK Demo'),
                         React.createElement(Button, {
@@ -118,7 +125,7 @@
                         }, 'Primary Button'),
                         React.createElement('div', {
                             key: 'spacer',
-                            className: 'tw-h-4'
+                            className: 'avantos-h-4'
                         }),
                         React.createElement(Button, {
                             key: 'secondary',
