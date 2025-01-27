@@ -11,16 +11,19 @@
     <script>
         function handleSDKError(error) {
             console.error('SDK Error:', error);
-            document.getElementById('root').innerHTML = `
-                <div style="color: red; padding: 20px;">
-                    Error loading SDK. Please check the console for details.
-                </div>
-            `;
+            const root = document.getElementById('root');
+            if (root) {
+                root.innerHTML = `
+                    <div style="color: red; padding: 20px;">
+                        Error loading SDK: ${error.message || 'Unknown error'}
+                    </div>
+                `;
+            }
         }
 
         // Global error handler
         window.onerror = function (msg, url, line) {
-            console.error('Global error:', msg, url, line);
+            console.error('Global error:', { message: msg, url, line });
             handleSDKError({ message: msg });
             return false;
         };
@@ -37,8 +40,24 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Include our SDK -->
+    <script>
+        // Define AMD if not present (for UMD support)
+        if (typeof define !== 'function') {
+            window.define = function (name, deps, callback) {
+                if (typeof name === 'function') {
+                    callback = name;
+                }
+                if (typeof deps === 'function') {
+                    callback = deps;
+                }
+                window.AvantosSdk = callback();
+            };
+            window.define.amd = true;
+        }
+    </script>
     <script src="https://csbnapses.github.io/ui-sdk/dist/index.global.js" type="text/javascript"
-        onload="console.log('SDK loaded')" onerror="handleSDKError(new Error('Failed to load SDK'))"></script>
+        onload="console.log('SDK loaded successfully')"
+        onerror="handleSDKError(new Error('Failed to load SDK'))"></script>
 </head>
 
 <body class="p-8">
@@ -50,6 +69,7 @@
                 if (typeof React === 'undefined') throw new Error('React not loaded');
                 if (typeof ReactDOM === 'undefined') throw new Error('ReactDOM not loaded');
                 if (typeof AvantosSdk === 'undefined') throw new Error('SDK not loaded');
+                console.log('Initializing app with SDK:', AvantosSdk);
 
                 const { Button } = AvantosSdk;
 

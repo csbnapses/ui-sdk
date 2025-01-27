@@ -1,7 +1,10 @@
 /* @license MIT */
 /* Content-Type: text/javascript */
-var AvantosSdk = (function (exports, React) {
-    'use strict';
+(function (global, factory) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('react')) :
+    typeof define === 'function' && define.amd ? define('@avantos/ui-sdk', ['exports', 'react'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.AvantosSdk = {}, global.React));
+})(this, (function (exports, React) { 'use strict';
 
     const Button = ({ variant = 'primary', size = 'medium', children, onClick, }) => {
         const baseStyles = 'rounded-md font-semibold transition-colors';
@@ -19,6 +22,5 @@ var AvantosSdk = (function (exports, React) {
 
     exports.Button = Button;
 
-    return exports;
-
-})({}, React);
+}));
+//# sourceMappingURL=index.global.js.map
