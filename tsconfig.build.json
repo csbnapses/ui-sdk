@@ -14,13 +14,20 @@
         "esModuleInterop": true,
         "skipLibCheck": true,
         "jsx": "react",
-        "outDir": "dist"
+        "jsxFactory": "React.createElement",
+        "jsxFragmentFactory": "React.Fragment",
+        "outDir": "dist",
+        "allowJs": true,
+        "forceConsistentCasingInFileNames": true,
+        "isolatedModules": true,
+        "resolveJsonModule": true
     },
     "include": [
         "src/components/**/*"
     ],
     "exclude": [
         "node_modules",
-        "dist"
+        "dist",
+        "src/app"
     ]
 }
