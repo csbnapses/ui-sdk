@@ -1,52 +1,60 @@
-# UI SDK
+# Avantos UI SDK
 
 A simple, modern React component library built with Next.js and Tailwind CSS.
 
-## Usage via CDN
+## Quick Start with CDN
 
-First, include React and the SDK in your HTML:
+Add the following scripts to your HTML:
 
 ```html
-<!-- Include React -->
-<script crossorigin src="https://unpkg.com/react@19/umd/react.production.min.js"></script>
-<script crossorigin src="https://unpkg.com/react-dom@19/umd/react-dom.production.min.js"></script>
+<!-- Include React 18 -->
+<script crossorigin src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
 
 <!-- Include Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
 
-<!-- Include our SDK (after building and running npm run serve) -->
-<script src="http://localhost:3001/index.iife.js"></script>
+<!-- Include Avantos UI SDK -->
+<script src="https://cdn.jsdelivr.net/gh/csbnapses/ui-sdk@main/dist/index.global.js"></script>
 ```
 
-Then you can use the components directly:
+Then use the components:
 
 ```html
 <div id="root"></div>
 <script>
-  const { Button } = AvantosSdk;
-  
-  const App = () => {
-    return React.createElement(Button, {
-      variant: 'primary',
-      size: 'medium',
-      onClick: () => alert('Clicked!')
-    }, 'Click me');
-  };
+    const { Button } = AvantosSdk;
+    
+    const App = () => {
+        return React.createElement(Button, {
+            variant: 'primary',
+            size: 'medium',
+            onClick: () => alert('Clicked!')
+        }, 'Click me');
+    };
 
-  ReactDOM.render(
-    React.createElement(App),
-    document.getElementById('root')
-  );
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(React.createElement(App));
 </script>
 ```
 
-## Development
+## Installation via npm (Alternative)
 
-1. Clone the repository
-2. Install dependencies: `npm install`
-3. Build the SDK: `npm run build`
-4. Serve locally: `npm run serve`
-5. The SDK will be available at `http://localhost:3001/index.iife.js`
+```bash
+npm install @avantos/ui-sdk
+```
+
+```jsx
+import { Button } from '@avantos/ui-sdk';
+
+function App() {
+  return (
+    <Button variant="primary" size="medium" onClick={() => alert('Clicked!')}>
+      Click me
+    </Button>
+  );
+}
+```
 
 ## Components
 
@@ -59,6 +67,74 @@ Props:
 - `size`: 'small' | 'medium' | 'large' (default: 'medium')
 - `children`: React.ReactNode
 - `onClick`: () => void
+
+Example:
+```jsx
+<Button 
+  variant="primary" 
+  size="medium" 
+  onClick={() => console.log('clicked')}
+>
+  Click me
+</Button>
+```
+
+Variants:
+- `primary`: Blue button with white text
+- `secondary`: Gray button with dark text
+
+Sizes:
+- `small`: Compact size
+- `medium`: Default size
+- `large`: Large size
+
+## Development
+
+1. Clone the repository:
+```bash
+git clone https://github.com/csbnapses/ui-sdk.git
+cd ui-sdk
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Start development server:
+```bash
+npm run dev
+```
+
+4. Build the package:
+```bash
+npm run build
+```
+
+5. Test locally:
+```bash
+npm run serve
+```
+
+## CDN URLs
+
+The SDK is available through multiple CDN providers:
+
+1. jsDelivr (Recommended):
+```html
+<script src="https://cdn.jsdelivr.net/gh/csbnapses/ui-sdk@main/dist/index.global.js"></script>
+```
+
+2. UNPKG (After npm publish):
+```html
+<script src="https://unpkg.com/@avantos/ui-sdk@latest/dist/index.global.js"></script>
+```
+
+## Browser Support
+
+- Modern browsers (Chrome, Firefox, Safari, Edge)
+- React 18+
+- Includes Tailwind CSS for styling
 
 ## License
 
