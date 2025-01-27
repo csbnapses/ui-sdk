@@ -27,13 +27,11 @@ module.exports = {
             config: {
                 path: './postcss.config.cjs'
             },
-            modules: {
-                generateScopedName: '[name]__[local]___[hash:base64:5]'
-            },
-            extract: false,
+            extensions: ['.css'],
             minimize: true,
-            use: ['sass'],
-            extensions: ['.css', '.scss', '.sass']
+            inject: {
+                insertAt: 'top'
+            }
         }),
         babel({
             babelHelpers: 'bundled',
@@ -41,8 +39,7 @@ module.exports = {
             extensions: ['.js', '.jsx', '.ts', '.tsx']
         }),
         resolve({
-            browser: true,
-            extensions: ['.js', '.jsx', '.ts', '.tsx']
+            browser: true
         }),
         commonjs({
             include: /node_modules/

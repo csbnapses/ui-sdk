@@ -2,12 +2,12 @@
 module.exports = {
     prefix: 'avantos-',
     content: [
-        "./src/**/*.{js,jsx,ts,tsx,css}"
+        "./src/**/*.{js,jsx,ts,tsx}",
     ],
     corePlugins: {
         preflight: false,
     },
-    important: '.avantos-sdk-root',
+    important: true,
     theme: {
         extend: {},
     },

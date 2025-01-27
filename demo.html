@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SDK Test (Local)</title>
+    <!-- Include React 18 -->
+    <script>window.process = { env: { NODE_ENV: 'production' } };</script>
+    <script crossorigin src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+
+    <!-- Include Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Include our SDK locally -->
+    <script src="http://localhost:3001/index.global.js"></script>
+</head>
+
+<body class="p-8">
+    <h1 class="text-2xl font-bold mb-4">Avantos UI SDK Demo</h1>
+    <div id="root"></div>
+    <script>
+        // Wait for all scripts to load
+        window.onload = function () {
+            try {
+                const { Button } = AvantosSdk;
+
+                const App = () => {
+                    return React.createElement('div', null, [
+                        React.createElement(Button, {
+                            key: 'primary',
+                            variant: 'primary',
+                            size: 'medium',
+                            onClick: () => alert('Primary clicked!')
+                        }, 'Primary Button'),
+                        React.createElement('div', { key: 'spacer', className: 'h-4' }),
+                        React.createElement(Button, {
+                            key: 'secondary',
+                            variant: 'secondary',
+                            size: 'medium',
+                            onClick: () => alert('Secondary clicked!')
+                        }, 'Secondary Button')
+                    ]);
+                };
+
+                const root = ReactDOM.createRoot(document.getElementById('root'));
+                root.render(React.createElement(App));
+            } catch (error) {
+                console.error('Error initializing app:', error);
+                document.getElementById('root').innerHTML = `
+                    <div class="text-red-500">
+                        Error loading SDK. Make sure you're running 'npm run serve'.
+                    </div>
+                `;
+            }
+        };
+    </script>
+</body>
+
+</html>

@@ -133,6 +133,8 @@
                     },
                     (error) => handleSDKError(new Error('Failed to load React'))
                 );
+            } else {
+                checkAllLoaded();
             }
 
             // Load ReactDOM if not present
@@ -145,6 +147,8 @@
                     },
                     (error) => handleSDKError(new Error('Failed to load ReactDOM'))
                 );
+            } else {
+                checkAllLoaded();
             }
 
             // Load SDK

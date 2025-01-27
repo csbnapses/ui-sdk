@@ -2,58 +2,51 @@
 @tailwind components;
 @tailwind utilities;
 
-/* SDK root container with strong isolation */
+/* Namespace all SDK styles */
 .avantos-sdk-root {
-    all: initial !important;
-    display: block !important;
-    font-family: system-ui, -apple-system, sans-serif !important;
-    box-sizing: border-box !important;
+    all: initial;
+    display: block;
+    font-family: system-ui, -apple-system, sans-serif;
 }
 
-/* Reset all elements within SDK */
 .avantos-sdk-root * {
-    box-sizing: border-box !important;
+    all: unset;
+    box-sizing: border-box;
 }
 
-/* Basic button reset */
+/* More aggressive button reset */
 .avantos-sdk-root button {
-    all: unset !important;
-    appearance: none !important;
+    all: unset;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: inherit;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    background: none;
     border: none !important;
-    background: none !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    cursor: pointer !important;
-    font-family: inherit !important;
     outline: none !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    position: relative !important;
+    box-shadow: none !important;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    line-height: normal;
+    text-decoration: none;
+    user-select: none;
 }
 
-/* Ensure text colors are applied */
-.avantos-text-white {
-    color: white !important;
+/* Override focus styles */
+.avantos-sdk-root button:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
 }
 
-.avantos-text-gray-800 {
-    color: #1f2937 !important;
-}
-
-/* Ensure background colors are applied */
-.avantos-bg-blue-500 {
-    background-color: #3b82f6 !important;
-}
-
-.avantos-bg-blue-600 {
-    background-color: #2563eb !important;
-}
-
-.avantos-bg-gray-200 {
-    background-color: #e5e7eb !important;
-}
-
-.avantos-bg-gray-300 {
-    background-color: #d1d5db !important;
+/* Override hover styles */
+.avantos-sdk-root button:hover {
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
 } 
