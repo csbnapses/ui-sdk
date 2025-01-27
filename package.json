@@ -2,6 +2,7 @@
     "name": "@avantos/ui-sdk",
     "version": "0.1.0",
     "private": false,
+    "type": "module",
     "main": "dist/index.js",
     "module": "dist/index.mjs",
     "types": "dist/index.d.ts",

@@ -14,17 +14,7 @@
     <!-- Include Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Include our SDK (choose one of the following) -->
-    <!-- Option 1: jsDelivr -->
-    <script src="https://cdn.jsdelivr.net/gh/csbnapses/ui-sdk@main/dist/index.global.js" type="application/javascript"
-        onerror="handleSDKError()"></script>
-    <!-- Option 2: UNPKG -->
-    <!-- <script src="https://unpkg.com/@avantos/ui-sdk@latest/dist/index.global.js"></script> -->
-</head>
-
-<body class="p-8">
-    <h1 class="text-2xl font-bold mb-4">Avantos UI SDK Demo</h1>
-    <div id="root"></div>
+    <!-- Include our SDK -->
     <script>
         function handleSDKError() {
             document.getElementById('root').innerHTML = `
@@ -33,7 +23,15 @@
                 </div>
             `;
         }
+    </script>
+    <script src="https://csbnapses.github.io/ui-sdk/dist/index.global.js" type="text/javascript"
+        onerror="handleSDKError()"></script>
+</head>
 
+<body class="p-8">
+    <h1 class="text-2xl font-bold mb-4">Avantos UI SDK Demo</h1>
+    <div id="root"></div>
+    <script>
         // Wait for all scripts to load
         window.onload = function () {
             try {

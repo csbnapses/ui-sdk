@@ -1,6 +1,9 @@
-const esbuild = require('esbuild');
-const fs = require('fs');
-const path = require('path');
+import * as esbuild from 'esbuild';
+import { writeFileSync, readFileSync } from 'fs';
+import { join } from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
 async function build() {
     // Build the bundle
@@ -18,13 +21,16 @@ async function build() {
             'global': 'window'
         },
         minify: true,
+        banner: {
+            js: '/* @license MIT */',
+        },
     });
 
     // Add content type header comment
-    const filePath = path.join(__dirname, 'dist', 'index.global.js');
-    const content = fs.readFileSync(filePath, 'utf8');
-    const contentWithHeader = `/*! Content-Type: application/javascript */\n${content}`;
-    fs.writeFileSync(filePath, contentWithHeader);
+    const filePath = join(__dirname, 'dist', 'index.global.js');
+    const content = readFileSync(filePath, 'utf8');
+    const contentWithHeader = `/* Content-Type: text/javascript */\n${content}`;
+    writeFileSync(filePath, contentWithHeader);
 }
 
 build().catch(() => process.exit(1)); 
