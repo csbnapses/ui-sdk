@@ -11,27 +11,37 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
-            important: '#avantos-sdk', // Make all Tailwind styles scoped to our container
+            prefix: 'avantos-', // Prefix all Tailwind classes
             corePlugins: {
-                preflight: false, // Disable Tailwind's base styles
+                preflight: false, // Disable base styles
             },
-            prefix: 'tw-', // Prefix all Tailwind classes to avoid conflicts
+            important: true, // Make styles important to override host styles
         }
     </script>
 
-    <style type="text/tailwindcss">
-        /* Reset styles only within our container */
-        #avantos-sdk {
+    <style>
+        /* Namespace all SDK styles */
+        .avantos-sdk-root {
             all: initial;
-            font-family: system-ui, sans-serif;
+            display: block;
+            font-family: system-ui, -apple-system, sans-serif;
         }
-        
-        /* Scope button styles */
-        #avantos-sdk button {
-            all: initial;
+
+        .avantos-sdk-root * {
+            all: unset;
+            box-sizing: border-box;
+        }
+
+        .avantos-sdk-root button {
             cursor: pointer;
-            font-family: inherit;
             display: inline-block;
+            font-family: inherit;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background: none;
+            border: none;
+            line-height: normal;
         }
     </style>
 
@@ -193,8 +203,8 @@
 </head>
 
 <body>
-    <!-- Scoped container for our SDK -->
-    <div id="avantos-sdk">
+    <!-- Scoped container with namespace -->
+    <div class="avantos-sdk-root">
         <div id="root"></div>
     </div>
 </body>

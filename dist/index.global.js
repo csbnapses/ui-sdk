@@ -7,15 +7,15 @@
 })(this, (function (exports, React) { 'use strict';
 
     const Button = ({ variant = 'primary', size = 'medium', children, onClick, }) => {
-        const baseStyles = 'tw-rounded-md tw-font-semibold tw-transition-colors';
+        const baseStyles = 'avantos-rounded-md avantos-font-semibold avantos-transition-colors';
         const variantStyles = {
-            primary: 'tw-bg-blue-500 tw-text-white hover:tw-bg-blue-600',
-            secondary: 'tw-bg-gray-200 tw-text-gray-800 hover:tw-bg-gray-300',
+            primary: 'avantos-bg-blue-500 avantos-text-white hover:avantos-bg-blue-600',
+            secondary: 'avantos-bg-gray-200 avantos-text-gray-800 hover:avantos-bg-gray-300',
         };
         const sizeStyles = {
-            small: 'tw-px-3 tw-py-1 tw-text-sm',
-            medium: 'tw-px-4 tw-py-2',
-            large: 'tw-px-6 tw-py-3 tw-text-lg',
+            small: 'avantos-px-3 avantos-py-1 avantos-text-sm',
+            medium: 'avantos-px-4 avantos-py-2',
+            large: 'avantos-px-6 avantos-py-3 avantos-text-lg',
         };
         return (React.createElement("button", { className: `${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]}`, onClick: onClick, type: "button" }, children));
     };
