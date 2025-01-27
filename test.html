@@ -7,44 +7,6 @@
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <title>SDK Test</title>
 
-    <!-- Scoped Tailwind Configuration -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            prefix: 'avantos-', // Prefix all Tailwind classes
-            corePlugins: {
-                preflight: false, // Disable base styles
-            },
-            important: true, // Make styles important to override host styles
-        }
-    </script>
-
-    <style>
-        /* Namespace all SDK styles */
-        .avantos-sdk-root {
-            all: initial;
-            display: block;
-            font-family: system-ui, -apple-system, sans-serif;
-        }
-
-        .avantos-sdk-root * {
-            all: unset;
-            box-sizing: border-box;
-        }
-
-        .avantos-sdk-root button {
-            cursor: pointer;
-            display: inline-block;
-            font-family: inherit;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            background: none;
-            border: none;
-            line-height: normal;
-        }
-    </style>
-
     <script>
         // Utility to load scripts dynamically
         function loadScript(src, onLoad, onError) {
@@ -100,12 +62,6 @@
                 if (!React) throw new Error('React not found in any context');
                 if (!ReactDOM) throw new Error('ReactDOM not found in any context');
                 if (typeof AvantosSdk === 'undefined') throw new Error('SDK not loaded');
-
-                console.log('Initializing app with:', {
-                    React: React.version,
-                    ReactDOM: ReactDOM.version,
-                    AvantosSdk
-                });
 
                 const { Button } = AvantosSdk;
                 console.log('Debug: Button component:', !!Button);
@@ -205,7 +161,6 @@
         // Start loading dependencies
         loadDependencies();
     </script>
-
 
 </head>
 

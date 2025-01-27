@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Namespace all SDK styles */
+.avantos-sdk-root {
+    all: initial;
+    display: block;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+.avantos-sdk-root * {
+    all: unset;
+    box-sizing: border-box;
+}
+
+.avantos-sdk-root button {
+    cursor: pointer;
+    display: inline-block;
+    font-family: inherit;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: none;
+    line-height: normal;
+} 
