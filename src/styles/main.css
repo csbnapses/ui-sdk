@@ -14,14 +14,39 @@
     box-sizing: border-box;
 }
 
+/* More aggressive button reset */
 .avantos-sdk-root button {
+    all: unset;
     cursor: pointer;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     font-family: inherit;
     text-align: center;
     margin: 0;
     padding: 0;
     background: none;
-    border: none;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
     line-height: normal;
+    text-decoration: none;
+    user-select: none;
+}
+
+/* Override focus styles */
+.avantos-sdk-root button:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+/* Override hover styles */
+.avantos-sdk-root button:hover {
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
 } 
