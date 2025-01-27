@@ -7,8 +7,46 @@
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <title>SDK Test</title>
 
-    <!-- Error Handler -->
+    <!-- Scoped Tailwind Configuration -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
+        tailwind.config = {
+            important: '#avantos-sdk', // Make all Tailwind styles scoped to our container
+            corePlugins: {
+                preflight: false, // Disable Tailwind's base styles
+            },
+            prefix: 'tw-', // Prefix all Tailwind classes to avoid conflicts
+        }
+    </script>
+
+    <style type="text/tailwindcss">
+        /* Reset styles only within our container */
+        #avantos-sdk {
+            all: initial;
+            font-family: system-ui, sans-serif;
+        }
+        
+        /* Scope button styles */
+        #avantos-sdk button {
+            all: initial;
+            cursor: pointer;
+            font-family: inherit;
+            display: inline-block;
+        }
+    </style>
+
+    <script>
+        // Utility to load scripts dynamically
+        function loadScript(src, onLoad, onError) {
+            const script = document.createElement('script');
+            script.src = src;
+            script.crossOrigin = 'anonymous';
+            script.onload = onLoad;
+            script.onerror = onError;
+            document.head.appendChild(script);
+        }
+
+        // Error Handler
         function handleSDKError(error) {
             console.error('SDK Error:', error);
             const root = document.getElementById('root');
@@ -27,51 +65,51 @@
             handleSDKError({ message: msg });
             return false;
         };
-    </script>
 
-    <!-- Include React 18 -->
-    <script>window.process = { env: { NODE_ENV: 'production' } };</script>
-    <script crossorigin src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"
-        onload="console.log('React loaded')" onerror="handleSDKError(new Error('Failed to load React'))"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"
-        onload="console.log('ReactDOM loaded')" onerror="handleSDKError(new Error('Failed to load ReactDOM'))"></script>
+        // Check for existing React instance
+        function getReact() {
+            return window.React || window.parent.React || window.top.React;
+        }
 
-    <!-- Include Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+        function getReactDOM() {
+            return window.ReactDOM || window.parent.ReactDOM || window.top.ReactDOM;
+        }
 
-    <!-- Include our SDK -->
-    <script>
-        // Ensure window.exports exists
-        window.exports = {};
-    </script>
-    <script src="https://csbnapses.github.io/ui-sdk/dist/index.global.js" type="text/javascript"
-        onload="console.log('SDK loaded successfully:', window.AvantosSdk)"
-        onerror="handleSDKError(new Error('Failed to load SDK'))"></script>
-</head>
-
-<body class="p-8">
-    <h1 class="text-2xl font-bold mb-4">Avantos UI SDK Demo</h1>
-    <div id="root"></div>
-    <script>
+        // Initialize the application
         function initApp() {
             try {
-                if (typeof React === 'undefined') throw new Error('React not loaded');
-                if (typeof ReactDOM === 'undefined') throw new Error('ReactDOM not loaded');
+                const React = getReact();
+                const ReactDOM = getReactDOM();
+
+                if (!React) throw new Error('React not found in any context');
+                if (!ReactDOM) throw new Error('ReactDOM not found in any context');
                 if (typeof AvantosSdk === 'undefined') throw new Error('SDK not loaded');
-                console.log('Initializing app with SDK:', AvantosSdk);
+
+                console.log('Initializing app with:', {
+                    React: React.version,
+                    ReactDOM: ReactDOM.version,
+                    AvantosSdk
+                });
 
                 const { Button } = AvantosSdk;
                 if (!Button) throw new Error('Button component not found in SDK');
 
                 const App = () => {
-                    return React.createElement('div', null, [
+                    return React.createElement('div', { className: 'tw-p-8' }, [
+                        React.createElement('h1', {
+                            className: 'tw-text-2xl tw-font-bold tw-mb-4',
+                            key: 'title'
+                        }, 'Avantos UI SDK Demo'),
                         React.createElement(Button, {
                             key: 'primary',
                             variant: 'primary',
                             size: 'medium',
                             onClick: () => alert('Primary clicked!')
                         }, 'Primary Button'),
-                        React.createElement('div', { key: 'spacer', className: 'h-4' }),
+                        React.createElement('div', {
+                            key: 'spacer',
+                            className: 'tw-h-4'
+                        }),
                         React.createElement(Button, {
                             key: 'secondary',
                             variant: 'secondary',
@@ -89,13 +127,76 @@
             }
         }
 
-        // Initialize when everything is loaded
-        if (document.readyState === 'complete') {
-            initApp();
-        } else {
-            window.addEventListener('load', initApp);
+        // Load dependencies in sequence
+        window.process = { env: { NODE_ENV: 'production' } };
+
+        function loadDependencies() {
+            const React = getReact();
+            const ReactDOM = getReactDOM();
+
+            let loadCount = 0;
+            const totalLoads = (!React ? 1 : 0) + (!ReactDOM ? 1 : 0) + 1; // +1 for SDK
+
+            function checkAllLoaded() {
+                loadCount++;
+                if (loadCount === totalLoads) {
+                    window.React = window.React || getReact();
+                    window.ReactDOM = window.ReactDOM || getReactDOM();
+                    if (document.readyState === 'complete') {
+                        initApp();
+                    } else {
+                        window.addEventListener('load', initApp);
+                    }
+                }
+            }
+
+            // Load React if not present
+            if (!React) {
+                loadScript(
+                    'https://unpkg.com/react@18.2.0/umd/react.production.min.js',
+                    () => {
+                        console.log('React loaded');
+                        checkAllLoaded();
+                    },
+                    (error) => handleSDKError(new Error('Failed to load React'))
+                );
+            }
+
+            // Load ReactDOM if not present
+            if (!ReactDOM) {
+                loadScript(
+                    'https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js',
+                    () => {
+                        console.log('ReactDOM loaded');
+                        checkAllLoaded();
+                    },
+                    (error) => handleSDKError(new Error('Failed to load ReactDOM'))
+                );
+            }
+
+            // Load SDK
+            loadScript(
+                'https://csbnapses.github.io/ui-sdk/dist/index.global.js',
+                () => {
+                    console.log('SDK loaded successfully:', window.AvantosSdk);
+                    checkAllLoaded();
+                },
+                (error) => handleSDKError(new Error('Failed to load SDK'))
+            );
         }
+
+        // Start loading dependencies
+        loadDependencies();
     </script>
+
+
+</head>
+
+<body>
+    <!-- Scoped container for our SDK -->
+    <div id="avantos-sdk">
+        <div id="root"></div>
+    </div>
 </body>
 
 </html>
