@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SDK Test</title>
+    <!-- Include React 18 -->
+    <script crossorigin src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+
+    <!-- Include Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Include our SDK -->
+    <script src="http://localhost:3001/index.iife.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script>
+        // Wait for all scripts to load
+        window.onload = function () {
+            const { Button } = AvantosSdk;
+
+            const App = () => {
+                return React.createElement(Button, {
+                    variant: 'primary',
+                    size: 'medium',
+                    onClick: () => alert('Clicked!')
+                }, 'Click me');
+            };
+
+            const root = ReactDOM.createRoot(document.getElementById('root'));
+            root.render(React.createElement(App));
+        };
+    </script>
+</body>
+
+</html>
