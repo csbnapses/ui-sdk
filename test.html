@@ -41,22 +41,11 @@
 
     <!-- Include our SDK -->
     <script>
-        // Define AMD if not present (for UMD support)
-        if (typeof define !== 'function') {
-            window.define = function (name, deps, callback) {
-                if (typeof name === 'function') {
-                    callback = name;
-                }
-                if (typeof deps === 'function') {
-                    callback = deps;
-                }
-                window.AvantosSdk = callback();
-            };
-            window.define.amd = true;
-        }
+        // Ensure window.exports exists
+        window.exports = {};
     </script>
     <script src="https://csbnapses.github.io/ui-sdk/dist/index.global.js" type="text/javascript"
-        onload="console.log('SDK loaded successfully')"
+        onload="console.log('SDK loaded successfully:', window.AvantosSdk)"
         onerror="handleSDKError(new Error('Failed to load SDK'))"></script>
 </head>
 
@@ -72,6 +61,7 @@
                 console.log('Initializing app with SDK:', AvantosSdk);
 
                 const { Button } = AvantosSdk;
+                if (!Button) throw new Error('Button component not found in SDK');
 
                 const App = () => {
                     return React.createElement('div', null, [

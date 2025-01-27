@@ -2,8 +2,8 @@
 /* Content-Type: text/javascript */
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('react')) :
-    typeof define === 'function' && define.amd ? define('@avantos/ui-sdk', ['exports', 'react'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.AvantosSdk = {}, global.React));
+    typeof define === 'function' && define.amd ? define(['exports', 'react'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.AvantosSdk = global.AvantosSdk || {}, global.React));
 })(this, (function (exports, React) { 'use strict';
 
     const Button = ({ variant = 'primary', size = 'medium', children, onClick, }) => {

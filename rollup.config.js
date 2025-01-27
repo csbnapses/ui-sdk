@@ -15,11 +15,9 @@ export default {
         },
         banner: '/* @license MIT */\n' +
             '/* Content-Type: text/javascript */',
-        exports: 'named',
+        exports: 'auto',
         sourcemap: true,
-        amd: {
-            id: '@avantos/ui-sdk'
-        }
+        extend: true
     },
     plugins: [
         peerDepsExternal(),
@@ -29,7 +27,8 @@ export default {
         }),
         commonjs({
             include: /node_modules/,
-            requireReturnsDefault: 'auto'
+            requireReturnsDefault: 'auto',
+            transformMixedEsModules: true
         }),
         typescript({
             tsconfig: './tsconfig.build.json',
