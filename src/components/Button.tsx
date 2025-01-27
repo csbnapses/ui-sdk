@@ -13,15 +13,15 @@ export const Button: React.FC<ButtonProps> = ({
     children,
     onClick,
 }) => {
-    const baseStyles = 'avantos-rounded-md avantos-font-semibold avantos-transition-colors';
+    const baseStyles = 'rounded-md font-semibold transition-colors inline-flex items-center justify-center';
     const variantStyles = {
-        primary: 'avantos-bg-blue-500 avantos-text-white hover:avantos-bg-blue-600',
-        secondary: 'avantos-bg-gray-200 avantos-text-gray-800 hover:avantos-bg-gray-300',
+        primary: 'bg-blue-500 text-white hover:bg-blue-600',
+        secondary: 'bg-gray-200 text-gray-800 hover:bg-gray-300',
     };
     const sizeStyles = {
-        small: 'avantos-px-3 avantos-py-1 avantos-text-sm',
-        medium: 'avantos-px-4 avantos-py-2',
-        large: 'avantos-px-6 avantos-py-3 avantos-text-lg',
+        small: 'px-3 py-1 text-sm',
+        medium: 'px-4 py-2',
+        large: 'px-6 py-3 text-lg',
     };
 
     return (

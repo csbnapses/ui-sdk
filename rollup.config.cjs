@@ -29,9 +29,9 @@ module.exports = {
             },
             extensions: ['.css'],
             minimize: true,
-            inject: {
-                insertAt: 'top'
-            }
+            inject: true,
+            modules: false,
+            extract: false
         }),
         babel({
             babelHelpers: 'bundled',
@@ -39,13 +39,17 @@ module.exports = {
             extensions: ['.js', '.jsx', '.ts', '.tsx']
         }),
         resolve({
-            browser: true
+            browser: true,
+            extensions: ['.js', '.jsx', '.ts', '.tsx']
         }),
         commonjs({
-            include: /node_modules/
+            include: /node_modules/,
+            transformMixedEsModules: true
         }),
         typescript({
-            tsconfig: './tsconfig.json'
+            tsconfig: './tsconfig.json',
+            sourceMap: true,
+            inlineSources: true
         })
     ],
     external: ['react', 'react-dom']
