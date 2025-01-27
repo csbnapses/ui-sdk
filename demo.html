@@ -2,10 +2,7 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="X-Content-Type-Options" content="nosniff">
-    <title>SDK Test</title>
+    <title>SDK Test (Local)</title>
     <!-- Include React 18 -->
     <script>window.process = { env: { NODE_ENV: 'production' } };</script>
     <script crossorigin src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
@@ -14,33 +11,17 @@
     <!-- Include Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Include our SDK (choose one of the following) -->
-    <!-- Option 1: jsDelivr -->
-    <script src="https://cdn.jsdelivr.net/gh/csbnapses/ui-sdk@main/dist/index.global.js" type="application/javascript"
-        onerror="handleSDKError()"></script>
-    <!-- Option 2: UNPKG -->
-    <!-- <script src="https://unpkg.com/@avantos/ui-sdk@latest/dist/index.global.js"></script> -->
+    <!-- Include our SDK locally -->
+    <script src="http://localhost:3001/index.global.js"></script>
 </head>
 
 <body class="p-8">
     <h1 class="text-2xl font-bold mb-4">Avantos UI SDK Demo</h1>
     <div id="root"></div>
     <script>
-        function handleSDKError() {
-            document.getElementById('root').innerHTML = `
-                <div class="text-red-500">
-                    Error loading SDK. Please check the console for details.
-                </div>
-            `;
-        }
-
         // Wait for all scripts to load
         window.onload = function () {
             try {
-                if (typeof AvantosSdk === 'undefined') {
-                    throw new Error('SDK not loaded properly');
-                }
-
                 const { Button } = AvantosSdk;
 
                 const App = () => {
@@ -65,7 +46,11 @@
                 root.render(React.createElement(App));
             } catch (error) {
                 console.error('Error initializing app:', error);
-                handleSDKError();
+                document.getElementById('root').innerHTML = `
+                    <div class="text-red-500">
+                        Error loading SDK. Make sure you're running 'npm run serve'.
+                    </div>
+                `;
             }
         };
     </script>
